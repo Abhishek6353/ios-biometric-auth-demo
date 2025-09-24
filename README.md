@@ -21,13 +21,13 @@ A simple iOS demo app built with SwiftUI to demonstrate biometric authentication
 4. **Welcome Screen**: Shows a simple confirmation message that authentication succeeded.
 
 
-## Demo Video
+## 🎥 Demo Previews
 
-> Watch a short demo of the app flow:
->
-> <video src="Adobe Express - FaceAuth.gif" controls width="400"></video>
->
-> <video src="Recordings/TouchAuth.mp4" controls width="400"></video>
+<p align="center">
+  <img src="Recordings/FaceAuth.gif" alt="FaceAuth Demo" width="30%" />
+  <img src="Recordings/TouchAuth.gif" alt="TouchAuth Demo" width="30%" />
+</p>
+
 
 
 ## Requirements
