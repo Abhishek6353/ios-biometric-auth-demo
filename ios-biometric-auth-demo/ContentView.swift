@@ -8,10 +8,15 @@
 import SwiftUI
 import LocalAuthentication
 
+enum BiometricType {
+    case none, touchID, faceID
+}
+
 struct ContentView: View {
     @State private var isAuthenticated = false
     @State private var authMessage = ""
     @State private var isAuthenticating = false
+    @State private var biometricType: BiometricType = .none
 
     var body: some View {
         ZStack {
@@ -21,11 +26,29 @@ struct ContentView: View {
                 WelcomeView(onGoBack: { isAuthenticated = false })
                     .transition(.opacity)
             } else {
-                AuthView(authMessage: $authMessage, isAuthenticating: $isAuthenticating, authenticateUser: authenticateUser)
+                AuthView(authMessage: $authMessage, isAuthenticating: $isAuthenticating, authenticateUser: authenticateUser, biometricType: biometricType)
                     .transition(.opacity)
             }
         }
+        .onAppear(perform: detectBiometricType)
         .animation(.easeInOut, value: isAuthenticated)
+    }
+
+    func detectBiometricType() {
+        let context = LAContext()
+        var error: NSError?
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            switch context.biometryType {
+            case .faceID:
+                biometricType = .faceID
+            case .touchID:
+                biometricType = .touchID
+            default:
+                biometricType = .none
+            }
+        } else {
+            biometricType = .none
+        }
     }
 
     func authenticateUser() {
@@ -43,19 +66,38 @@ struct AuthView: View {
     @Binding var authMessage: String
     @Binding var isAuthenticating: Bool
     var authenticateUser: () -> Void
+    var biometricType: BiometricType
 
     var body: some View {
         VStack(spacing: 32) {
-            Image(systemName: "faceid")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 80, height: 80)
-                .foregroundColor(.accentColor)
-                .padding(.top, 40)
+            Group {
+                if biometricType == .faceID {
+                    Image(systemName: "faceid")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 80, height: 80)
+                        .foregroundColor(.accentColor)
+                        .padding(.top, 40)
+                } else if biometricType == .touchID {
+                    Image(systemName: "touchid")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 80, height: 80)
+                        .foregroundColor(.accentColor)
+                        .padding(.top, 40)
+                } else {
+                    Image(systemName: "lock.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 80, height: 80)
+                        .foregroundColor(.accentColor)
+                        .padding(.top, 40)
+                }
+            }
             Text("Biometric Authentication")
                 .font(.largeTitle)
                 .fontWeight(.bold)
-            Text("Use Face ID or Touch ID to continue")
+            Text(biometricType == .faceID ? "Use Face ID to continue" : biometricType == .touchID ? "Use Touch ID to continue" : "Biometric authentication not available")
                 .font(.title3)
                 .foregroundColor(.secondary)
             if !authMessage.isEmpty {
@@ -82,7 +124,7 @@ struct AuthView: View {
                 .cornerRadius(12)
                 .shadow(radius: 4)
             }
-            .disabled(isAuthenticating)
+            .disabled(isAuthenticating || biometricType == .none)
             Spacer()
         }
         .padding()
