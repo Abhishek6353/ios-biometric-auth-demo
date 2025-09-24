@@ -2,7 +2,7 @@
 
 A simple iOS demo app built with SwiftUI to demonstrate biometric authentication using Face ID and Touch ID. The app showcases a modern authentication flow and UI, leveraging Apple's LocalAuthentication framework.
 
-## 🎥 Demo Previews
+## 🎥 Previews
 
 <p align="center">
   <img src="Recordings/FaceAuth.gif" alt="FaceAuth Demo" width="30%" />
