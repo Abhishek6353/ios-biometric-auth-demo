@@ -2,25 +2,6 @@
 
 A simple iOS demo app built with SwiftUI to demonstrate biometric authentication using Face ID and Touch ID. The app showcases a modern authentication flow and UI, leveraging Apple's LocalAuthentication framework.
 
-## Features
-
-- Biometric authentication using Face ID or Touch ID
-- Modern, responsive SwiftUI interface
-- Clear authentication feedback (success/failure)
-- Welcome screen on successful authentication
-- Error message and retry option on failure
-- Singleton pattern for authentication logic
-
-## App Flow
-
-1. **Launch App**: User is greeted with an authentication screen.
-2. **Biometric Prompt**: iOS automatically shows Face ID or Touch ID prompt (based on device capability).
-3. **Authentication Result**:
-    - ✅ **Success**: User is taken to the Welcome screen.
-    - ❌ **Failure**: User stays on the authentication screen with an error message (optionally retry).
-4. **Welcome Screen**: Shows a simple confirmation message that authentication succeeded.
-
-
 ## 🎥 Demo Previews
 
 <p align="center">
