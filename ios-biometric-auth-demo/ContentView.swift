@@ -18,7 +18,7 @@ struct ContentView: View {
             LinearGradient(gradient: Gradient(colors: [Color.accentColor.opacity(0.2), Color.accentColor]), startPoint: .top, endPoint: .bottom)
                 .ignoresSafeArea()
             if isAuthenticated {
-                WelcomeView()
+                WelcomeView(onGoBack: { isAuthenticated = false })
                     .transition(.opacity)
             } else {
                 AuthView(authMessage: $authMessage, isAuthenticating: $isAuthenticating, authenticateUser: authenticateUser)
@@ -91,8 +91,23 @@ struct AuthView: View {
 }
 
 struct WelcomeView: View {
+    var onGoBack: (() -> Void)? = nil
     var body: some View {
         VStack(spacing: 32) {
+            HStack {
+                Button(action: { onGoBack?() }) {
+                    Image(systemName: "chevron.left")
+                        .font(.title2)
+                        .foregroundColor(.accentColor)
+                        .padding(8)
+                        .background(Color(.systemGray6))
+                        .clipShape(Circle())
+                        .accessibilityLabel("Back")
+                }
+                Spacer()
+            }
+            .padding(.top, 16)
+            .padding(.leading, 8)
             Image(systemName: "checkmark.seal.fill")
                 .resizable()
                 .scaledToFit()
