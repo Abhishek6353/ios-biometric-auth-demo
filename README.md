@@ -20,12 +20,15 @@ A simple iOS demo app built with SwiftUI to demonstrate biometric authentication
     - ❌ **Failure**: User stays on the authentication screen with an error message (optionally retry).
 4. **Welcome Screen**: Shows a simple confirmation message that authentication succeeded.
 
+
 ## Demo Video
 
 > Watch a short demo of the app flow:
-> [![App Demo](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=VIDEO_ID)
-> 
-> Replace `VIDEO_ID` with your actual YouTube video ID, or embed a local GIF/video if preferred.
+>
+> <video src="Recordings/FaceAuth.mp4" controls width="400"></video>
+>
+> <video src="Recordings/TouchAuth.mp4" controls width="400"></video>
+
 
 ## Requirements
 
